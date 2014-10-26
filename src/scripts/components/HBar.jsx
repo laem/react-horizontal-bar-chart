@@ -29,38 +29,7 @@ var Bar = React.createClass({
     return (
       <rect fill={this.props.color}
         width={this.props.width} height={this.props.height}
-        x={this.props.offset} y={this.props.availableHeight - this.props.height} />
-    );
-  }
-});
-
-var DataSeries = React.createClass({
-  getDefaultProps: function() {
-    return {
-      title: '',
-      data: []
-    }
-  },
-
-  render: function() {
-    var props = this.props;
-
-    var yScale = d3.scale.linear()
-      .domain([0, d3.max(this.props.data)])
-      .range([0, this.props.height]);
-
-    var xScale = d3.scale.ordinal()
-      .domain(d3.range(this.props.data.length))
-      .rangeRoundBands([0, this.props.width], 0.05);
-
-    var bars = this.props.data.map(function(point, i) {
-      return (
-        <Bar height={yScale(point)} width={xScale.rangeBand()} offset={xScale(i)} availableHeight={props.height} color={props.color} key={i} />
-      )
-    });
-
-    return (
-      <g>{bars}</g>
+        y={this.props.offset} x={0} />
     );
   }
 });
@@ -69,15 +38,38 @@ var HBar = React.createClass({
   getDefaultProps: function() {
     return {
       width: 600,
-      height: 300
+      height: 300,
+      data: [ 30, 10, 5, 8, 15, 10 ],
+      color: 'turquoise'
     }
   },
 
   render: function() {
+    var props = this.props;
+
+    var xScale = d3.scale.linear()
+      .domain([0, d3.max(this.props.data)])
+      .range([0, this.props.width]);
+
+    var yScale = d3.scale.ordinal()
+      .domain(d3.range(this.props.data.length))
+      .rangeRoundBands([0, this.props.height], 0.05);
+
+    var bars = this.props.data.map(function(point, i) {
+      return (
+        <Bar  key={i}
+              width={xScale(point)} height={yScale.rangeBand()}
+              offset={yScale(i)}
+              color={props.color}
+        />
+      )
+    });
+
     return (
       <Chart width={this.props.width} height={this.props.height}>
-        <DataSeries data={[ 30, 10, 5, 8, 15, 10 ]} width={this.props.width} height={this.props.height} color="cornflowerblue" />
+        <g>{bars}</g>
       </Chart>
+
     );
   }
 });
