@@ -19,10 +19,10 @@ var Bar = React.createClass({
 
   render: function() {
     return (
-      <rect fill={this.props.color}
+      <rect
         width={this.props.width} height={this.props.height}
         y={this.props.offset} x={0}
-        onMouseOver={this.props.over.bind(this, this.props.index, this.props.point)}
+        onMouseOver={this.props.over}
         onMouseOut={this.props.out}
       />
     );
@@ -34,8 +34,7 @@ var HBar = React.createClass({
     return {
       width: 300,
       height: 400,
-      data: [ 30, 10, 5, 8, 15, 10, 16, 12, 9 ],
-      color: 'turquoise'
+      data: [ 30, 10, 5, 8, 15, 10, 16, 12, 9 ]
     }
   },
 
@@ -57,12 +56,9 @@ var HBar = React.createClass({
     var bars = this.props.data.map(function(point, i) {
       return (
         <Bar  key={i}
-              index={i}
-              point={point}
               width={hbar.xScale(point)} height={hbar.yScale.rangeBand()}
               offset={hbar.yScale(i)}
-              color={props.color}
-              over={hbar.over}
+              over={hbar.over.bind(hbar, i, point)}
               out={hbar.out}
         />
       )

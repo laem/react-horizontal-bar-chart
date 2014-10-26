@@ -1,5 +1,9 @@
 .HBar{
-  border: 1px dashed #f00;
+  border: 1px dashed rgba(255, 255, 255, 0.13);
+}
+
+.HBar rect {
+  fill: #018670
 }
 
 .HBar .tips text{
