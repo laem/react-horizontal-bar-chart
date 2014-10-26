@@ -29,7 +29,9 @@ var Bar = React.createClass({
     return (
       <rect fill={this.props.color}
         width={this.props.width} height={this.props.height}
-        y={this.props.offset} x={0} />
+        y={this.props.offset} x={0}
+        
+      />
     );
   }
 });
@@ -37,9 +39,9 @@ var Bar = React.createClass({
 var HBar = React.createClass({
   getDefaultProps: function() {
     return {
-      width: 600,
-      height: 300,
-      data: [ 30, 10, 5, 8, 15, 10 ],
+      width: 300,
+      height: 400,
+      data: [ 30, 10, 5, 8, 15, 10, 16, 12, 9 ],
       color: 'turquoise'
     }
   },
@@ -53,7 +55,7 @@ var HBar = React.createClass({
 
     var yScale = d3.scale.ordinal()
       .domain(d3.range(this.props.data.length))
-      .rangeRoundBands([0, this.props.height], 0.05);
+      .rangeBands([0, this.props.height], 1/3, 1/2);
 
     var bars = this.props.data.map(function(point, i) {
       return (
