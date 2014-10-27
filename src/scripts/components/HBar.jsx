@@ -79,22 +79,15 @@ var HBar = React.createClass({
 
   drawTips: function(){
     if (this.state.tips.hidden) return;
+    
     var point = this.state.tips.point,
         i = this.state.tips.i;
 
     var x = this.xScale(point.v),
         y = this.yScale(i) + this.yScale.rangeBand() / 2
 
-    var inside,
-        outside;
-    if (x > this.props.width / 2){
-      //the bar is wide, put the tip inside
-      inside = point.label
-      outside = point.v
-    } else {
-      outside = point.label + ', ' + point.v
-      inside = ''
-    }
+    var wide = x > this.props.width / 2 //the bar is wide, the point label will go inside
+
     return (
       <g className="tips">
         <text className="inside"
@@ -102,14 +95,14 @@ var HBar = React.createClass({
               x={x - 8}
               textAnchor="end"
         >
-          {inside}
+          {wide ? point.label}
         </text>
         <text className="outside"
               y={y}
               x={x + 8}
               textAnchor="start"
         >
-          {outside}
+          {wide ? point.v : point.label + ', ' + point.v}
         </text>
       </g>
     )
