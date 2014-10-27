@@ -34,7 +34,11 @@ var HBar = React.createClass({
     return {
       width: 300,
       height: 400,
-      data: [ 30, 10, 5, 8, 15, 10, 16, 12, 9 ]
+      data: [
+        {v: 30, label: 'Bonjour'},
+        {v: 10, label: 'Mon'},
+        {v: 5, label: 'Ami'}
+      ]
     }
   },
 
@@ -56,7 +60,7 @@ var HBar = React.createClass({
     var bars = this.props.data.map(function(point, i) {
       return (
         <Bar  key={i}
-              width={hbar.xScale(point)} height={hbar.yScale.rangeBand()}
+              width={hbar.xScale(point.v)} height={hbar.yScale.rangeBand()}
               offset={hbar.yScale(i)}
               over={hbar.over.bind(hbar, i, point)}
               out={hbar.out}
@@ -75,13 +79,38 @@ var HBar = React.createClass({
 
   drawTips: function(){
     if (this.state.tips.hidden) return;
-    var x = this.xScale(this.state.tips.point)
+    var point = this.state.tips.point,
+        i = this.state.tips.i;
+
+    var x = this.xScale(point.v),
+        y = this.yScale(i) + this.yScale.rangeBand() / 2
+
+    var inside,
+        outside;
+    if (x > this.props.width / 2){
+      //the bar is wide, put the tip inside
+      inside = point.label
+      outside = point.v
+    } else {
+      outside = point.label + ', ' + point.v
+      inside = ''
+    }
     return (
       <g className="tips">
-        <text className="value"
-              y={this.yScale(this.state.tips.i) + this.yScale.rangeBand() / 2}
-              x={x - 35}>{this.state.tips.point}</text>
-        <text className="label" x={x + 10}></text>
+        <text className="inside"
+              y={y}
+              x={x - 8}
+              textAnchor="end"
+        >
+          {inside}
+        </text>
+        <text className="outside"
+              y={y}
+              x={x + 8}
+              textAnchor="start"
+        >
+          {outside}
+        </text>
       </g>
     )
   },
@@ -106,7 +135,7 @@ var HBar = React.createClass({
 
   scales: function(){
     this.xScale = d3.scale.linear()
-      .domain([0, d3.max(this.props.data)])
+      .domain([0, d3.max(this.props.data, function(p){return p.v})])
       .range([0, this.props.width]);
 
     this.yScale = d3.scale.ordinal()

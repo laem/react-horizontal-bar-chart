@@ -1,5 +1,7 @@
 .HBar{
   border: 1px dashed rgba(255, 255, 255, 0.13);
+  background: #222222;
+  padding-right: 2%
 }
 
 .HBar rect {
@@ -8,9 +10,13 @@
 
 .HBar .tips text{
   dominant-baseline: central;
-  pointer-events: none
+  pointer-events: none;
 }
 
-.HBar .value {
-  fill:white
+.HBar .inside {
+  fill: white
+}
+
+.HBar .outside {
+  fill: white
 }
