@@ -19,7 +19,7 @@ function randomData(N){
   Array.apply(null, Array(N || 9))
     .map(function(v){
       return {
-        v: Math.floor(Math.random() * 20),
+        v: Math.floor(Math.random() * 20) + 1,
         label: faker.name.findName()
       }
     })
