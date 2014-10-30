@@ -32,21 +32,19 @@ var Bar = React.createClass({
 var HBar = React.createClass({
   getDefaultProps: function() {
     return {
-      width: 300,
-      height: 400,
+      width: 230,
+      height: 300,
       data: [
-        {v: 30, label: 'Bonjour'},
+        {v: 30, label: 'Salut'},
         {v: 10, label: 'Mon'},
-        {v: 5, label: 'Ami'}
+        {v: 5, label: 'Pote'}
       ]
     }
   },
 
   getInitialState: function(){
     return {
-      tips: {
-        hidden: true
-      }
+      focus: this.props.focus
     }
   },
 
@@ -62,7 +60,7 @@ var HBar = React.createClass({
         <Bar  key={i}
               width={hbar.xScale(point.v)} height={hbar.yScale.rangeBand()}
               offset={hbar.yScale(i)}
-              over={hbar.over.bind(hbar, i, point)}
+              over={hbar.over.bind(hbar, i)}
               out={hbar.out}
         />
       )
@@ -71,35 +69,45 @@ var HBar = React.createClass({
     return (
       <svg className="HBar" width={this.props.width} height={this.props.height}>
         <g>{bars}</g>
-        {this.drawTips()}
+        <line className="axis"
+              x1="0" y1="0" x2="0" y2={this.yScale.rangeExtent()[1]}
+              style={{
+                strokeWidth: (this.props.width * 0.005) + 'px',
+                visibility: this.props.axis ? 'visible' : 'hidden'
+              }}
+        />
+        {this.focus()}
       </svg>
 
     );
   },
 
-  drawTips: function(){
-    if (this.state.tips.hidden) return;
+  focus: function(){
+    if (this.state.focus == undefined) return;
 
-    var point = this.state.tips.point,
-        i = this.state.tips.i;
+    var i = this.state.focus,
+        point = this.props.data[i];
 
     var x = this.xScale(point.v),
         y = this.yScale(i) + this.yScale.rangeBand() / 2
 
     var wide = x > this.props.width / 2 //the bar is wide, the point label will go inside
 
+    var margin = this.props.width * 0.03
+    var style = {fontSize: this.yScale.rangeBand() * 0.6 + 'px'}
+
     return (
-      <g className="tips">
+      <g className="focus" style={style}>
         <text className="inside"
               y={y}
-              x={x - 8}
+              x={x - margin}
               textAnchor="end"
         >
           {wide ? point.label : ''}
         </text>
         <text className="outside"
               y={y}
-              x={x + 8}
+              x={x + margin}
               textAnchor="start"
         >
           {wide ? point.v : point.label + ', ' + point.v}
@@ -108,28 +116,24 @@ var HBar = React.createClass({
     )
   },
 
-  over: function(i, p){
+  over: function(i){
     this.setState({
-      tips: {
-        hidden: false,
-        i: i,
-        point: p
-      }
+      focus: i
     })
   },
 
   out: function(){
     this.setState({
-      tips: {
-        hidden: true
-      }
+      focus: null
     })
   },
 
   scales: function(){
+    var w = this.props.width
     this.xScale = d3.scale.linear()
       .domain([0, d3.max(this.props.data, function(p){return p.v})])
-      .range([0, this.props.width]);
+      // leave some space in the container to displat bar values
+      .range([0, w * 0.85]);
 
     this.yScale = d3.scale.ordinal()
       .domain(d3.range(this.props.data.length))

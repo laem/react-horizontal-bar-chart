@@ -1,22 +1,12 @@
 .HBar{
+  /*
   border: 1px dashed rgba(255, 255, 255, 0.13);
-  background: #222222;
-  padding-right: 2%
+  */
+  padding-right: 4%
 }
 
-.HBar rect {
-  fill: #018670
-}
-
-.HBar .tips text{
+.HBar .focus text{
   dominant-baseline: central;
   pointer-events: none;
-}
-
-.HBar .inside {
-  fill: white
-}
-
-.HBar .outside {
-  fill: white
+  opacity: 0.95
 }

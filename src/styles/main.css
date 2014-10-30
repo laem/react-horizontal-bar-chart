@@ -4,6 +4,10 @@ html, body {
   background: #222222;
 }
 
+h2 {
+  font-weight: 100
+}
+
 /* main */
 
 .main {

@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var App = require('./App');
+var App = require('./examples');
 var React = require('react');
 var {DefaultRoute, Route, Routes, Link} = require('react-router');
 
