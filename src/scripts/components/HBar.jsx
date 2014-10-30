@@ -79,7 +79,7 @@ var HBar = React.createClass({
 
   drawTips: function(){
     if (this.state.tips.hidden) return;
-    
+
     var point = this.state.tips.point,
         i = this.state.tips.i;
 
@@ -95,7 +95,7 @@ var HBar = React.createClass({
               x={x - 8}
               textAnchor="end"
         >
-          {wide ? point.label}
+          {wide ? point.label : ''}
         </text>
         <text className="outside"
               y={y}
