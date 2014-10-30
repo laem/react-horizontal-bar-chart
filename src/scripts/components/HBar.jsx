@@ -133,7 +133,7 @@ var HBar = React.createClass({
     this.xScale = d3.scale.linear()
       .domain([0, d3.max(this.props.data, function(p){return p.v})])
       // leave some space in the container to displat bar values
-      .range([0, w * 0.85]);
+      .range([0, w * 0.8]);
 
     this.yScale = d3.scale.ordinal()
       .domain(d3.range(this.props.data.length))
