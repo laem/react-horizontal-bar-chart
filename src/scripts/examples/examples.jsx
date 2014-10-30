@@ -77,7 +77,7 @@ var App = React.createClass({
                   '   data={randomData(5)}',
                   '   width="600"',
                   '   height="400"',
-                  '   focus="2 //have the 2nd bar focused',
+                  '   focus="2" //have the 2nd bar focused',
                   '   axis="true"',
                   '/>'
                 ].join('\n')

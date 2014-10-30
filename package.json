@@ -1,9 +1,9 @@
 {
   "name": "react-horizontal-bar-chart",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Simple horizontal bar chart react component, with inline tooltips",
+  "keywords": "react-component",
   "repository": "",
-  "private": true,
   "src": "src",
   "test": "test",
   "dist": "dist",
