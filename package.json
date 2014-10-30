@@ -6,7 +6,7 @@
   "private": true,
   "src": "src",
   "test": "test",
-  "dist": "dist",
+  "dist": "examples",
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
