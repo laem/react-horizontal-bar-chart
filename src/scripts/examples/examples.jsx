@@ -43,15 +43,50 @@ require('../../styles/bootstrap.min.css');
 
 var App = React.createClass({
   render: function() {
+
+    var code = (function () {/*
+<HBar
+    data={randomData(5)}
+    width="600"
+    height="400"
+    focus="1"
+    axis="true"
+    sort="descending"
+/>
+*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+    var css = (function () {/*
+.HBar rect {
+  fill: #4D386C
+}
+
+.HBar .inside {
+  fill: white
+}
+
+.HBar .outside {
+  fill: white
+}
+
+.HBar .axis {
+  stroke: #4D386C;
+}
+
+.HBar .focused {
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1px
+}
+*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+
     return (
       <div className='main examples'>
         <Grid>
           <Row>
             <Col xs={9} md={5}>
               <div className="example1">
-                <h2>Simple example</h2>
+                <h1>Simple example</h1>
                 <HBar data={randomData()}/>
               </div>
+              <h4>JSX code </h4>
               <pre>
                 {[
                   '<HBar',
@@ -63,7 +98,7 @@ var App = React.createClass({
             </Col>
             <Col xs={9} md={7}>
               <div className="example2">
-                <h2>With options</h2>
+                <h1>With options</h1>
                 <HBar
                       data={randomData(5)}
                       width="600"
@@ -73,30 +108,17 @@ var App = React.createClass({
                       sort="descending"
                 />
               </div>
+              <h4>JSX code </h4>
               <pre>
-                {[
-                  '<HBar',
-                  '   data={randomData(5)}',
-                  '   width="600"',
-                  '   height="400"',
-                  '   focus="2" //have the 2nd bar initially focused',
-                  '   axis="true"',
-                  '   sort="descending"',
-                  '/>'
-                ].join('\n')
-                }
-                <br/>
+                {code}
               </pre>
-              <p>
-                <a href="styles/example2.css" target="_blank">Css options</a> (for colors)
-              </p>
+              <h4>CSS</h4>
+              <pre>
+                {css}
+              </pre>
             </Col>
           </Row>
         </Grid>
-
-
-
-
       </div>
     );
   }

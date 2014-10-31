@@ -14,6 +14,7 @@
     "d3"
   ],
   "src": "src",
+  "dist": "examples",
   "test": "test",
   "mainInput": "main",
   "mainOutput": "main",
