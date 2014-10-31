@@ -43,40 +43,6 @@ require('../../styles/bootstrap.min.css');
 
 var App = React.createClass({
   render: function() {
-
-    var code = (function () {/*
-<HBar
-    data={randomData(5)}
-    width="600"
-    height="400"
-    focus="1"
-    axis="true"
-    sort="descending"
-/>
-*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-    var css = (function () {/*
-.HBar rect {
-  fill: #4D386C
-}
-
-.HBar .inside {
-  fill: white
-}
-
-.HBar .outside {
-  fill: white
-}
-
-.HBar .axis {
-  stroke: #4D386C;
-}
-
-.HBar .focused {
-  stroke: rgba(255, 255, 255, 0.5);
-  stroke-width: 1px
-}
-*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
     return (
       <div className='main examples'>
         <Grid>
@@ -110,11 +76,41 @@ var App = React.createClass({
               </div>
               <h4>JSX code </h4>
               <pre>
-                {code}
+                {
+                  '<HBar \n'
+                + '      data={randomData(5)} \n'
+                + '      width="600" \n'
+                + '      height="400" \n'
+                + '      focus="1" \n'
+                + '      axis="true" \n'
+                + '      sort="descending" \n'
+                + '/> \n'
+                }
               </pre>
               <h4>CSS</h4>
               <pre>
-                {css}
+                {
+                  ' .HBar rect { \n'
+                  + '  fill: #4D386C \n'
+                  + '} \n'
+                  + ' \n'
+                  + ' .HBar .inside { \n'
+                  + '  fill: white \n'
+                  + '} \n'
+                  + ' \n'
+                  + ' .HBar .outside { \n'
+                  + '  fill: white \n'
+                  + '} \n'
+                  + ' \n'
+                  + ' .HBar .axis { \n'
+                  + '  stroke: #4D386C; \n'
+                  + '} \n'
+                  + ' \n'
+                  + ' .HBar .focused { \n'
+                  + '  stroke: rgba(255, 255, 255, 0.5); \n'
+                  + '  stroke-width: 1px \n'
+                  + '} \n'
+                }
               </pre>
             </Col>
           </Row>
