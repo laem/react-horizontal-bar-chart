@@ -8,10 +8,8 @@
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
-    "react-router": "^0.7.0",
     "react": "~0.11.2",
-    "d3": "*",
-    "faker": "*"
+    "d3": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -37,6 +35,8 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-clean": "~0.6.0",
     "react-hot-loader": "^0.4.5",
-    "react-bootstrap": "*"
+    "react-bootstrap": "*",
+    "react-router": "^0.7.0",
+    "faker": "*"
   }
 }
