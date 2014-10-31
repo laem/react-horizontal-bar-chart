@@ -5,7 +5,6 @@
   "keywords": "react-component",
   "src": "src",
   "test": "test",
-  "dist": "examples",
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
