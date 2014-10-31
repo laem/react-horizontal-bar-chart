@@ -30,6 +30,7 @@ function randomData(N){
 require('../../styles/normalize.css');
 require('../../styles/main.css');
 require('../../styles/examples.css');
+require('../../styles/example2.css');
 
 
 var imageURL = require('../../images/yeoman.png');
@@ -67,8 +68,9 @@ var App = React.createClass({
                       data={randomData(5)}
                       width="600"
                       height="400"
-                      focus="2"
+                      focus="1"
                       axis="true"
+                      sort="descending"
                 />
               </div>
               <pre>
@@ -79,10 +81,15 @@ var App = React.createClass({
                   '   height="400"',
                   '   focus="2" //have the 2nd bar initially focused',
                   '   axis="true"',
+                  '   sort="descending"',
                   '/>'
                 ].join('\n')
                 }
+                <br/>
               </pre>
+              <p>
+                <a href="styles/example2.css" target="_blank">Css options</a> (for colors)
+              </p>
             </Col>
           </Row>
         </Grid>

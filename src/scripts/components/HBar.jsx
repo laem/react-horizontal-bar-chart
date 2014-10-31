@@ -20,6 +20,7 @@ var Bar = React.createClass({
   render: function() {
     return (
       <rect
+        className={this.props.focused ? 'focused' : ''}
         width={this.props.width} height={this.props.height}
         y={this.props.offset} x={0}
         onMouseOver={this.props.over}
@@ -55,13 +56,19 @@ var HBar = React.createClass({
 
     hbar.scales()
 
-    var bars = this.props.data.map(function(point, i) {
+    var data = this.props.data;
+
+    if (this.props.sort === 'ascending') data.sort(function(p, q){return p.v > q.v});
+    if (this.props.sort === 'descending') data.sort(function(p, q){return p.v < q.v});
+
+    var bars = data.map(function(point, i) {
       return (
         <Bar  key={i}
               width={hbar.xScale(point.v)} height={hbar.yScale.rangeBand()}
               offset={hbar.yScale(i)}
               over={hbar.over.bind(hbar, i)}
               out={hbar.out}
+              focused={hbar.state.focus == i}
         />
       )
     });
