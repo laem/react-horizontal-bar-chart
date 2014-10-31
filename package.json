@@ -2,7 +2,17 @@
   "name": "react-horizontal-bar-chart",
   "version": "0.1.2",
   "description": "Simple horizontal bar chart react component, with inline tooltips",
-  "keywords": "react-component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laem/react-horizontal-bar-chart.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "chart",
+    "bar",
+    "d3"
+  ],
   "src": "src",
   "test": "test",
   "mainInput": "main",
