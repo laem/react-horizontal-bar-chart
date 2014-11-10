@@ -95,6 +95,13 @@ var HBar = React.createClass({
     var i = this.state.focus,
         point = this.props.data[i];
 
+    var v = point.v
+
+    /* Format the point if an input formatting function is available */
+    if (this.props.formatter){
+      v = this.props.formatter(v)
+    }
+
     var x = this.xScale(point.v),
         y = this.yScale(i) + this.yScale.rangeBand() / 2
 
@@ -117,7 +124,7 @@ var HBar = React.createClass({
               x={x + margin}
               textAnchor="start"
         >
-          {wide ? point.v : point.label + ', ' + point.v}
+          {wide ? v : point.label + ', ' + v}
         </text>
       </g>
     )

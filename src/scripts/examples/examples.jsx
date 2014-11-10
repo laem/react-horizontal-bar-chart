@@ -13,13 +13,17 @@ var {DefaultRoute, Route, Routes, Link} = require('react-router');
 var faker = require('faker')
 
 var HBar = require('../components/HBar.jsx')
+var frmttr = require('frmttr')
+var formatter = function (value){
+  return frmttr()(value).regular
+}
 
-function randomData(N){
+function randomData(N, max){
   return (
   Array.apply(null, Array(N || 9))
     .map(function(v){
       return {
-        v: Math.floor(Math.random() * 20) + 1,
+        v: Math.floor(Math.random() * (max || 20)) + 1,
         label: faker.name.findName()
       }
     })
@@ -56,6 +60,8 @@ var App = React.createClass({
               <pre>
                 {[
                   '<HBar',
+                  '   // data is an array of ',
+                  '   // {v: 18, label: "Joseph"} objects',
                   '   data={randomData()}',
                   '/>'
                 ].join('\n')
@@ -66,12 +72,13 @@ var App = React.createClass({
               <div className="example2">
                 <h1>With options</h1>
                 <HBar
-                      data={randomData(5)}
+                      data={randomData(5, 10000)}
                       width="600"
                       height="400"
                       focus="1"
                       axis="true"
                       sort="descending"
+                      formatter={formatter}
                 />
               </div>
               <h4>JSX code </h4>
@@ -84,6 +91,8 @@ var App = React.createClass({
                 + '      focus="1" \n'
                 + '      axis="true" \n'
                 + '      sort="descending" \n'
+                + '      // fn applied to values, should return a string \n'
+                + '      formatter={formatter} \n'
                 + '/> \n'
                 }
               </pre>

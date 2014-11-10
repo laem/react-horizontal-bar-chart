@@ -20,7 +20,8 @@
   "mainOutput": "main",
   "dependencies": {
     "react": "~0.11.2",
-    "d3": "*"
+    "d3": "*",
+    "frmttr": "git://github.com/laem/frmttr.git"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
