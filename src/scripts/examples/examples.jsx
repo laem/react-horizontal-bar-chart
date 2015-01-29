@@ -20,7 +20,7 @@ var formatter = function (value){
 
 function randomData(N, max){
   return (
-  Array.apply(null, Array(N || 9))
+  Array.apply(null, Array(N || 5))
     .map(function(v){
       return {
         v: Math.floor(Math.random() * (max || 20)) + 1,
@@ -51,9 +51,9 @@ var App = React.createClass({
       <div className='main examples'>
         <Grid>
           <Row>
-            <Col xs={9} md={5}>
+            <Col xs={9} md={7}>
               <div className="example1">
-                <h1>Simple example</h1>
+                <h1>Default</h1>
                 <HBar data={randomData()}/>
               </div>
               <h4>JSX code </h4>
@@ -68,15 +68,15 @@ var App = React.createClass({
                 }
               </pre>
             </Col>
-            <Col xs={9} md={7}>
+            <Col xs={6} md={5}>
               <div className="example2">
                 <h1>With options</h1>
                 <HBar
-                      data={randomData(5, 10000)}
-                      width="600"
-                      height="400"
+                      data={randomData(9, 10000)}
+                      width="230"
+                      height="300"
                       focus="1"
-                      axis="true"
+                      axis="false"
                       sort="descending"
                       formatter={formatter}
                 />
@@ -86,10 +86,10 @@ var App = React.createClass({
                 {
                   '<HBar \n'
                 + '      data={randomData(5)} \n'
-                + '      width="600" \n'
-                + '      height="400" \n'
+                + '      width="230" \n'
+                + '      height="300" \n'
                 + '      focus="1" \n'
-                + '      axis="true" \n'
+                + '      axis="false" \n'
                 + '      sort="descending" \n'
                 + '      // fn applied to values, should return a string \n'
                 + '      formatter={formatter} \n'

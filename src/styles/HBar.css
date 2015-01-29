@@ -8,5 +8,5 @@
 .HBar .focus text{
   dominant-baseline: central;
   pointer-events: none;
-  opacity: 0.95
+  opacity: 0.75
 }

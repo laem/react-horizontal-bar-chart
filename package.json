@@ -19,8 +19,8 @@
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
-    "react": "~0.11.2",
     "d3": "*",
+    "react": "^0.12.2",
     "frmttr": "git://github.com/laem/frmttr.git"
   },
   "devDependencies": {

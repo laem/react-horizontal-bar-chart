@@ -33,8 +33,8 @@ var Bar = React.createClass({
 var HBar = React.createClass({
   getDefaultProps: function() {
     return {
-      width: 230,
-      height: 300,
+      width: 500,
+      height: 400,
       data: [
         {v: 30, label: 'Salut'},
         {v: 10, label: 'Mon'},
@@ -45,7 +45,7 @@ var HBar = React.createClass({
 
   getInitialState: function(){
     return {
-      focus: this.props.focus
+      hovered: null
     }
   },
 
@@ -68,7 +68,7 @@ var HBar = React.createClass({
               offset={hbar.yScale(i)}
               over={hbar.over.bind(hbar, i)}
               out={hbar.out}
-              focused={hbar.state.focus == i}
+              focused={hbar.state.hovered == i || hbar.props.focus == i}
         />
       )
     });
@@ -80,20 +80,42 @@ var HBar = React.createClass({
               x1="0" y1="0" x2="0" y2={this.yScale.rangeExtent()[1]}
               style={{
                 strokeWidth: (this.props.width * 0.005) + 'px',
-                visibility: this.props.axis ? 'visible' : 'hidden'
+                visibility: this.props.axis === 'false' ? 'hidden' : 'visible'
               }}
         />
-        {this.focus()}
+      {this.drawTexts()}
       </svg>
 
     );
   },
 
-  focus: function(){
-    if (this.state.focus == undefined) return;
+  drawTexts: function(){
+    var _this = this;
+    var texts = [];
+    // One specific bar should have its label and value
+    if (this.props.focus != undefined){
+      var i = +this.props.focus
+      texts.push(this.drawText(i, this.props.data[i]))
+    } else { // All bars should have texts
+      texts = texts.concat(this.props.data.map(function(point, i){
+        return _this.drawText(i, point)
+      }))
+    }
 
-    var i = this.state.focus,
-        point = this.props.data[i];
+    if (this.state.hovered != undefined){
+      var i = +this.state.hovered
+      texts.push(this.drawText(i, this.props.data[i]))
+    }
+
+    return (
+      <g >
+        {texts}
+      </g>
+    )
+
+  },
+
+  drawText: function(i, point){
 
     var v = point.v
 
@@ -115,15 +137,14 @@ var HBar = React.createClass({
         <text className="inside"
               y={y}
               x={x - margin}
-              textAnchor="end"
-        >
+              textAnchor="end" >
+
           {wide ? point.label : ''}
         </text>
         <text className="outside"
               y={y}
               x={x + margin}
-              textAnchor="start"
-        >
+              textAnchor="start" >
           {wide ? v : point.label + ', ' + v}
         </text>
       </g>
@@ -132,13 +153,13 @@ var HBar = React.createClass({
 
   over: function(i){
     this.setState({
-      focus: i
+      hovered: i
     })
   },
 
   out: function(){
     this.setState({
-      focus: null
+      hovered: null
     })
   },
 

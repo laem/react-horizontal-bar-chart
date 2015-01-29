@@ -56,18 +56,7 @@ module.exports = function (grunt) {
       }
     },
 
-    open: {
-      options: {
-        delay: 500
-      },
-      dev: {
-        path: 'http://localhost:<%= connect.options.port %>/webpack-dev-server/',
-        app: 'chromium-browser'
-      },
-      dist: {
-        path: 'http://localhost:<%= connect.options.port %>/'
-      }
-    },
+
 
     karma: {
       unit: {
@@ -110,11 +99,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open:dist', 'connect:dist']);
+      return grunt.task.run(['build', 'connect:dist']);
     }
 
     grunt.task.run([
-      'open:dev',
       'webpack-dev-server'
     ]);
   });
