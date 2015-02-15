@@ -22,7 +22,7 @@ var Bar = React.createClass({
       <rect
         className={this.props.focused ? 'focused' : ''}
         width={this.props.width} height={this.props.height}
-        y={this.props.offset} x={0}
+        y={this.props.offset} x={this.props.x}
         onMouseOver={this.props.over}
         onMouseOut={this.props.out}
       />
@@ -53,6 +53,8 @@ var HBar = React.createClass({
     var props = this.props;
     var hbar = this
 
+    //Save space for labels before the chart
+    this.xBase = this.props.textPosition === 'dynamic' ? 0 : this.props.width / 3
 
     hbar.scales()
 
@@ -65,6 +67,7 @@ var HBar = React.createClass({
       return (
         <Bar  key={i}
               width={hbar.xScale(point.v)} height={hbar.yScale.rangeBand()}
+              x={hbar.xBase}
               offset={hbar.yScale(i)}
               over={hbar.over.bind(hbar, i)}
               out={hbar.out}
@@ -77,7 +80,7 @@ var HBar = React.createClass({
       <svg className="HBar" width={this.props.width} height={this.props.height}>
         <g>{bars}</g>
         <line className="axis"
-              x1="0" y1="0" x2="0" y2={this.yScale.rangeExtent()[1]}
+              x1={this.xBase} y1="0" x2={this.xBase} y2={this.yScale.rangeExtent()[1]}
               style={{
                 strokeWidth: (this.props.width * 0.005) + 'px',
                 visibility: this.props.axis === 'false' ? 'hidden' : 'visible'
@@ -124,31 +127,53 @@ var HBar = React.createClass({
       v = this.props.formatter(v)
     }
 
-    var x = this.xScale(point.v),
-        y = this.yScale(i) + this.yScale.rangeBand() / 2
+    var x = this.xScale(point.v) + this.xBase,
+        y = this.yScale(i) + this.yScale.rangeBand() / 2,
+        style = {fontSize: this.yScale.rangeBand() * 0.6 + 'px'},
+        margin = this.props.width * 0.03;
 
-    var wide = x > this.props.width / 2 //the bar is wide, the point label will go inside
+    if (this.props.textPosition === 'dynamic'){
+      var wide = x > this.props.width / 2 //the bar is wide, the point label will go inside
 
-    var margin = this.props.width * 0.03
-    var style = {fontSize: this.yScale.rangeBand() * 0.6 + 'px'}
+      return (
+        <g className="focus" style={style}>
+          <text className="inside"
+                y={y}
+                x={x - margin}
+                textAnchor="end" >
 
-    return (
-      <g className="focus" style={style}>
-        <text className="inside"
-              y={y}
-              x={x - margin}
-              textAnchor="end" >
+            {wide ? point.label : ''}
+          </text>
+          <text className="right"
+                y={y}
+                x={x + margin}
+                textAnchor="start" >
+            {wide ? v : point.label + ', ' + v}
+          </text>
+        </g>
+      )
+    } else {
+      return (
+        <g className="focus" style={style}>
+          <text className="left"
+                y={y}
+                x={this.xBase - margin}
+                textAnchor="end" >
 
-          {wide ? point.label : ''}
-        </text>
-        <text className="outside"
-              y={y}
-              x={x + margin}
-              textAnchor="start" >
-          {wide ? v : point.label + ', ' + v}
-        </text>
-      </g>
-    )
+            {point.label}
+          </text>
+          <text className="right"
+                y={y}
+                x={x + margin}
+                textAnchor="start" >
+            {v}
+          </text>
+        </g>
+      )
+
+    }
+
+
   },
 
   over: function(i){
@@ -167,8 +192,8 @@ var HBar = React.createClass({
     var w = this.props.width
     this.xScale = d3.scale.linear()
       .domain([0, d3.max(this.props.data, function(p){return p.v})])
-      // leave some space in the container to displat bar values
-      .range([0, w * 0.8]);
+      // leave some space in the container to display bar values
+      .range([0, (w - this.xBase) * 0.8]);
 
     this.yScale = d3.scale.ordinal()
       .domain(d3.range(this.props.data.length))

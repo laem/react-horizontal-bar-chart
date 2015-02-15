@@ -28,7 +28,11 @@
   fill: white
 }
 
-.example1 .HBar .outside {
+.example1 .HBar .right {
+  fill: white
+}
+
+.example1 .HBar .left {
   fill: white
 }
 
@@ -46,7 +50,7 @@
   fill: white
 }
 
-.example2 .HBar .outside {
+.example2 .HBar .right {
   fill: white
 }
 

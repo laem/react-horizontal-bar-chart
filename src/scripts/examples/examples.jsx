@@ -18,13 +18,13 @@ var formatter = function (value){
   return frmttr()(value).regular
 }
 
-function randomData(N, max){
+function randomData(N, max, long){
   return (
   Array.apply(null, Array(N || 5))
     .map(function(v){
       return {
         v: Math.floor(Math.random() * (max || 20)) + 1,
-        label: faker.name.findName()
+        label: long ? faker.name.findName() : faker.name.firstName()
       }
     })
   )
@@ -53,7 +53,7 @@ var App = React.createClass({
             <Col xs={9} md={7}>
               <div className="example1">
                 <h1>Default</h1>
-                <HBar data={randomData()}/>
+                <HBar data={randomData()} />
               </div>
               <h4>JSX code </h4>
               <pre>
@@ -71,13 +71,15 @@ var App = React.createClass({
               <div className="example2">
                 <h1>With options</h1>
                 <HBar
-                      data={randomData(9, 10000)}
+                      data={randomData(9, 10000, true)}
                       width="230"
                       height="300"
                       focus="3"
+                      textPosition="dynamic"
                       axis="false"
                       sort="descending"
                       formatter={formatter}
+
 
                 />
               </div>
@@ -90,6 +92,8 @@ var App = React.createClass({
                 + '      height="300" \n'
                 + '      // focus on the 3rd bar \n'
                 + '      focus="3" \n'
+                + '      // insert texts in bars if possible \n'
+                + '      textPosition="dynamic" \n'
                 + '      axis="false" \n'
                 + '      sort="descending" \n'
                 + '      // fn applied to values, should return a string \n'
