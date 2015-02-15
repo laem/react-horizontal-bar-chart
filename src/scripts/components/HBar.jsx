@@ -33,7 +33,7 @@ var Bar = React.createClass({
 var HBar = React.createClass({
   getDefaultProps: function() {
     return {
-      width: 500,
+      width: 800,
       height: 400,
       data: [
         {v: 30, label: 'Salut'},
@@ -82,7 +82,7 @@ var HBar = React.createClass({
         <line className="axis"
               x1={this.xBase} y1="0" x2={this.xBase} y2={this.yScale.rangeExtent()[1]}
               style={{
-                strokeWidth: (this.props.width * 0.005) + 'px',
+                strokeWidth: (this.props.width * 0.002) + 'px',
                 visibility: this.props.axis === 'false' ? 'hidden' : 'visible'
               }}
         />
