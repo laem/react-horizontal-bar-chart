@@ -2,11 +2,13 @@
 
 var App = require('./examples');
 var React = require('react');
-var {DefaultRoute, Route, Routes, Link} = require('react-router');
+var Router = require('react-router');
+var Route = Router.Route
 
-React.renderComponent((
-  <Routes >
-    <Route path="/" handler={App}>
-    </Route>
-  </Routes>
-), document.getElementById('content'));
+var routes = (
+  <Route path="/" handler={App} />
+)
+
+Router.run(routes, function (Handler) {
+  React.render(<Handler/>, document.getElementById('content'));
+});

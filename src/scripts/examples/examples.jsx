@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
-var {DefaultRoute, Route, Routes, Link} = require('react-router');
+//var RouteHandler = require('react-router').RouteHandler;
 
 // Export React so the devtools can find it
 (window !== window.top ? window.top : window).React = React;
