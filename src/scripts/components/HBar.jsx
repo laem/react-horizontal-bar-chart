@@ -58,8 +58,8 @@ var HBar = React.createClass({
 
     var data = this.props.data;
 
-    if (this.props.sort === 'ascending') data.sort(function(p, q){return p.v > q.v});
-    if (this.props.sort === 'descending') data.sort(function(p, q){return p.v < q.v});
+    if (this.props.sort === 'ascending') data.sort(function(p, q){return p.v - q.v});
+    if (this.props.sort === 'descending') data.sort(function(p, q){return q.v - p.v});
 
     var bars = data.map(function(point, i) {
       return (
