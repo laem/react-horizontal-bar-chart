@@ -34,7 +34,6 @@ function randomData(N, max){
 require('../../styles/normalize.css');
 require('../../styles/main.css');
 require('../../styles/examples.css');
-require('../../styles/example2.css');
 
 
 var imageURL = require('../../images/yeoman.png');
@@ -75,10 +74,11 @@ var App = React.createClass({
                       data={randomData(9, 10000)}
                       width="230"
                       height="300"
-                      focus="1"
+                      focus="3"
                       axis="false"
                       sort="descending"
                       formatter={formatter}
+
                 />
               </div>
               <h4>JSX code </h4>
@@ -88,7 +88,8 @@ var App = React.createClass({
                 + '      data={randomData(5)} \n'
                 + '      width="230" \n'
                 + '      height="300" \n'
-                + '      focus="1" \n'
+                + '      // focus on the 3rd bar \n'
+                + '      focus="3" \n'
                 + '      axis="false" \n'
                 + '      sort="descending" \n'
                 + '      // fn applied to values, should return a string \n'

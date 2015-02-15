@@ -68,7 +68,7 @@ var HBar = React.createClass({
               offset={hbar.yScale(i)}
               over={hbar.over.bind(hbar, i)}
               out={hbar.out}
-              focused={hbar.state.hovered == i || hbar.props.focus == i}
+              focused={hbar.state.hovered == i || hbar.props.focus - 1 == i}
         />
       )
     });
@@ -94,7 +94,7 @@ var HBar = React.createClass({
     var texts = [];
     // One specific bar should have its label and value
     if (this.props.focus != undefined){
-      var i = +this.props.focus
+      var i = +this.props.focus - 1
       texts.push(this.drawText(i, this.props.data[i]))
     } else { // All bars should have texts
       texts = texts.concat(this.props.data.map(function(point, i){

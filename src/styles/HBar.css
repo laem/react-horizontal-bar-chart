@@ -10,3 +10,7 @@
   pointer-events: none;
   opacity: 0.75
 }
+
+.HBar .axis {
+  stroke-width: 1px
+}
