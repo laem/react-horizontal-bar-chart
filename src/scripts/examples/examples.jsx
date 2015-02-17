@@ -67,11 +67,48 @@ var App = React.createClass({
               <Gist id='7bbcc65533bdabede557' />
             </Col>
           </Row>
+          <Row>
+            <Col xs={6} md={6}>
+              <div className="example3">
+                <h1>Animated</h1>
+                <AnimatedHBar
+                      width="230"
+                      height="300"
+                      axis="false"
+                      sort="descending"
+                      formatter={formatter}
+                />
+              </div>
+            </Col>
+          </Row>
         </Grid>
       </div>
     );
   }
 });
+
+var AnimatedHBar = React.createClass({
+  getInitialState: function(){
+    return {data: this.getData()}
+  },
+  getData: function(){
+    return randomData(9, 10000)
+  },
+  render: function(){
+    return <HBar {...this.props} data={this.state.data}/>
+  },
+  componentDidMount: function(){
+    var component = this
+    setInterval(function(){
+      var data = component.state.data
+      component.setState({
+        data: increaseValues(data)
+      })
+    }, 3000)
+  }
+})
+
+/* UTILS */
 
 function randomData(N, max, long){
   return (
@@ -84,5 +121,15 @@ function randomData(N, max, long){
     })
   )
 }
+
+function increaseValues(array){
+  var max = array.reduce((previous, current) => {
+    return current.v > previous.v ? current : previous
+  }, {v: 0})
+  var randomIndex = Math.floor(Math.random() * array.length);
+  array[randomIndex].v += max.v / 10
+  return array
+}
+
 
 module.exports = App;

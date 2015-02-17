@@ -25,6 +25,8 @@
     "react-gist": "^1.0.1"
   },
   "devDependencies": {
+    "babel-core": "^4.0.1",
+    "babel-loader": "^4.0.0",
     "css-loader": "~0.9.0",
     "faker": "*",
     "grunt": "~0.4.5",

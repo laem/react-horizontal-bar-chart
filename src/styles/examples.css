@@ -62,3 +62,21 @@
   stroke: rgba(255, 255, 255, 0.5);
   stroke-width: 1px;
 }
+
+/* EXAMPLE 3 */
+
+.example3 react {
+  fill: black
+}
+
+.example3 .HBar .inside {
+  fill: white
+}
+
+.example3 .HBar .right {
+  fill: white
+}
+
+.example3 .HBar .left {
+  fill: white
+}

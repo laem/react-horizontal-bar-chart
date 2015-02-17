@@ -5,7 +5,7 @@
   padding-right: 4%
 }
 
-.HBar .focus text{
+.HBar .texts text{
   dominant-baseline: central;
   pointer-events: none;
   opacity: 0.75
@@ -13,4 +13,34 @@
 
 .HBar .axis {
   stroke-width: 1px
+}
+
+
+/* ANIMATING */
+
+.barTransition-enter {
+  opacity: 0.01;
+  fill: white;
+  transition: fill 1s ease-in;
+}
+
+.barTransition-enter.barTransition-enter-active {
+  opacity: 1;
+  fill: black;
+}
+
+.barTransition-leave {
+  opacity: 1;
+  transition: opacity .01s ease-out;
+}
+
+.barTransition-leave.barTransition-leave-active {
+  opacity: 0.01;
+}
+
+.hover.barTransition-leave {
+  transition: opacity 0.01s;
+}
+.hover.barTransition-enter {
+  transition: fill 0.01s;
 }

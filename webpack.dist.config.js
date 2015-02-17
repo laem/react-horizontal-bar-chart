@@ -52,6 +52,10 @@ module.exports = {
     }, {
       test: /\.(png|jpg|svg|eot|ttf|woff)$/,
       loader: 'url-loader?limit=8192'
+    }, {
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
     }]
   }
 };
