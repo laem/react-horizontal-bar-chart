@@ -5,11 +5,16 @@
 'use strict';
 
 var React = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactTransitionGroup = React.addons.TransitionGroup;
 require('../../styles/HBar.css');
 require('d3')
 
 var Bar = React.createClass({
+  getInitialState: function(){
+    var shade = this.props.flash === "true" ? 0.7 : 0
+    return {shade}
+  },
+
   getDefaultProps: function() {
     return {
       width: 0,
@@ -18,15 +23,23 @@ var Bar = React.createClass({
     }
   },
 
+  componentDidMount: function(){
+    setTimeout(() => {
+      if (this.isMounted()) this.setState({shade: 0})
+    }, 150)
+  },
+
   render: function() {
+    var style = this.props.fillColor ?
+      {fill: shadeColor(this.props.fillColor, this.state.shade)} : {};
     return (
       <rect
-        key={this.props.key}
         className={this.props.focused ? 'focused' : ''}
         width={this.props.width} height={this.props.height}
         y={this.props.offset} x={this.props.x}
         onMouseOver={this.props.over}
         onMouseOut={this.props.out}
+        style={style}
       />
     );
   }
@@ -56,7 +69,7 @@ var HBar = React.createClass({
     var hbar = this
 
     //Save space for labels before the chart
-    this.xBase = this.props.textPosition === 'dynamic' ? 0 : this.props.width / 3
+    this.xBase = this.props.textPosition === 'fitted' ? 0 : this.props.width / 3
 
     hbar.scales()
 
@@ -74,7 +87,7 @@ var HBar = React.createClass({
 
     return (
       <svg className="HBar" width={this.props.width} height={this.props.height}>
-        <ReactCSSTransitionGroup transitionName="barTransition" component="g">
+        <g>
           {data.map((point, i) =>
               <Bar  key={point.label + i}
                     width={hbar.xScale(point.v)} height={hbar.yScale.rangeBand()}
@@ -83,9 +96,11 @@ var HBar = React.createClass({
                     over={hbar.over.bind(hbar, i)}
                     out={hbar.out}
                     focused={hbar.state.hovered == i || hbar.props.focus - 1 == i}
+                    fillColor={hbar.props.barColor}
+                    flash={hbar.props.flash}
               />
           )}
-        </ReactCSSTransitionGroup>
+        </g>
         <line className="axis"
               x1={this.xBase} y1="0" x2={this.xBase} y2={this.yScale.rangeExtent()[1]}
               style={{
@@ -100,27 +115,25 @@ var HBar = React.createClass({
   },
 
   drawTexts: function(){
-    var _this = this;
     var texts = [];
     // One specific bar should have its label and value
     if (this.props.focus != undefined){
       var i = +this.props.focus - 1
       texts.push(this.drawText(i, this.props.data[i]))
+
+      if (this.state.hovered != undefined && this.state.hovered != i){
+        texts.push(this.drawText(+this.state.hovered, this.props.data[i], 'hover'))
+      }
     } else { // All bars should have texts
-      texts = texts.concat(this.props.data.map(function(point, i){
-        return _this.drawText(i, point)
+      texts = texts.concat(this.props.data.map((point, i) => {
+        return this.drawText(i, point)
       }))
     }
 
-    if (this.state.hovered != undefined){
-      var i = +this.state.hovered
-      texts.push(this.drawText(i, this.props.data[i], 'hover'))
-    }
-
     return (
-      <ReactCSSTransitionGroup transitionName="barTransition" component="g">
+      <g>
         {texts}
-      </ReactCSSTransitionGroup>
+      </g>
     )
 
   },
@@ -140,7 +153,7 @@ var HBar = React.createClass({
         margin = this.props.width * 0.03,
         className = `texts ${type || ''}`
 
-    if (this.props.textPosition === 'dynamic'){
+    if (this.props.textPosition === 'fitted'){
       var wide = x > this.props.width / 2 //the bar is wide, the point label will go inside
 
       return (
@@ -210,5 +223,13 @@ var HBar = React.createClass({
 
 
 });
+
+/* Helpers */
+
+// http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+function shadeColor(color, percent) {
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
 
 module.exports = HBar;

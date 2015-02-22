@@ -20,9 +20,6 @@
 
 /* EXAMPLE 1 */
 
-.example1 .HBar rect {
-  fill: #018670
-}
 
 .example1 .HBar .inside {
   fill: white
@@ -36,15 +33,15 @@
   fill: white
 }
 
+.example1 rect {
+  fill: #018670
+}
+
 .example1 .HBar .axis {
   stroke: #018670;
 }
 
 /* EXAMPLE 2 */
-
-.example2 .HBar rect {
-  fill: #4D386C
-}
 
 .example2 .HBar .inside {
   fill: white
@@ -64,10 +61,6 @@
 }
 
 /* EXAMPLE 3 */
-
-.example3 react {
-  fill: black
-}
 
 .example3 .HBar .inside {
   fill: white

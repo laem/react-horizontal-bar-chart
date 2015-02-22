@@ -58,10 +58,11 @@ var App = React.createClass({
                       width="230"
                       height="300"
                       focus="3"
-                      textPosition="dynamic"
+                      textPosition="fitted"
                       axis="false"
                       sort="descending"
                       formatter={formatter}
+                      barColor="#4D386C"
                 />
               </div>
               <Gist id='7bbcc65533bdabede557' />
@@ -70,15 +71,18 @@ var App = React.createClass({
           <Row>
             <Col xs={6} md={6}>
               <div className="example3">
-                <h1>Animated</h1>
+                <h1>Flash new elements</h1>
                 <AnimatedHBar
                       width="230"
                       height="300"
                       axis="false"
                       sort="descending"
                       formatter={formatter}
+                      flash="true"
+                      barColor="#3753aa"
                 />
               </div>
+              <Gist id='7bbcc65533bdabede557' />
             </Col>
           </Row>
         </Grid>
