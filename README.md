@@ -1,6 +1,9 @@
 react-horizontal-bar-chart
 ==========================
 
+> Attention ! This library is based on React 0.12, and is not maintained. 
+
+
 Simple horizontal bar chart react component, with inline tooltips.
 
 Try it !
